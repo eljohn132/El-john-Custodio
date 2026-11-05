@@ -114,18 +114,8 @@
 
 <section id="contact"><div class="wrap">
   <div class="contact">
-    <h2 style="font-size:18px;margin-bottom:6px">Leave me a message</h2><p style="font-size:12px;color:var(--dkmut);margin:0">Or email <a href="mailto:eljohncustodio132@gmail.com" style="text-decoration:underline">eljohncustodio132@gmail.com</a> · <a href="https://m.me/Titobadong09" target="_blank" rel="noopener" style="text-decoration:underline">Chat on Messenger</a></p>
-    <form id="contactForm" action="https://formsubmit.co/ajax/eljohncustodio132@gmail.com" method="POST" novalidate>
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_autoresponse" value="Hi! Thanks for messaging Eljohn Custodio. I received your message and will reply as soon as I can.">
-      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
-      <div class="two"><div><label for="e">Email</label><input id="e" name="email" type="email" placeholder="Enter email" required autocomplete="email"></div><div><label for="c">Company</label><input id="c" name="company" placeholder="Enter company" autocomplete="organization"></div></div>
-      <label for="s">Subject</label><input id="s" name="_subject" placeholder="Enter subject">
-      <label for="m">Message</label><textarea id="m" name="message" rows="4" placeholder="Enter message" required></textarea>
-      <button class="btn" type="submit" id="sendBtn">Send message</button>
-      <p id="formStatus" role="status" aria-live="polite" style="font-size:13px;margin:12px 0 0;min-height:18px"></p>
-    </form>
+    <h2 style="font-size:18px;margin-bottom:6px">Leave me a message</h2>
+    <p style="font-size:12px;color:var(--dkmut);margin:0">Or email <a href="mailto:eljohncustodio132@gmail.com" style="text-decoration:underline">eljohncustodio132@gmail.com</a> · <a href="https://m.me/Titobadong09" target="_blank" rel="noopener" style="text-decoration:underline">Chat on Messenger</a></p>
   </div>
 </div></section>
 
@@ -135,27 +125,6 @@
   <div style="margin-left:auto"><b>© 2026 Eljohn Custodio</b><br>All rights reserved</div>
 </footer>
 <script src="app.js" defer></script>
-<script>
-/* Contact form: sends through FormSubmit (AJAX) and shows a status message */
-(function(){
-  var f=document.getElementById('contactForm'),b=document.getElementById('sendBtn'),st=document.getElementById('formStatus');
-  if(!f)return;
-  f.addEventListener('submit',function(ev){
-    ev.preventDefault();
-    var email=f.elements.email.value.trim(),msg=f.elements.message.value.trim();
-    if(!/^\S+@\S+\.\S+$/.test(email)){st.style.color='#ff8a8a';st.textContent='Please enter a valid email address.';f.elements.email.focus();return;}
-    if(!msg){st.style.color='#ff8a8a';st.textContent='Please write a message.';f.elements.message.focus();return;}
-    b.disabled=true;var old=b.textContent;b.textContent='Sending...';st.style.color='';st.textContent='';
-    fetch(f.action,{method:'POST',body:new FormData(f),headers:{'Accept':'application/json'}})
-      .then(function(r){return r.json().then(function(d){
-        if(r.ok&&String(d.success)==='true'){st.style.color='#6fdc8c';st.textContent='Thank you! Your message was sent. I will reply to your email soon.';f.reset();}
-        else{throw new Error(d&&d.message||'Something went wrong.');}
-      });})
-      .catch(function(e){st.style.color='#ff8a8a';st.textContent='Could not send: '+(e.message||'network error')+'. You can email me at eljohncustodio132@gmail.com.';})
-      .then(function(){b.disabled=false;b.textContent=old;});
-  });
-})();
-</script>
 <script>
 /* Stop-motion hero: plays only while the cursor (or a finger) is on the photo. Each hold time is in ms (1000 = 1 sec) */
 (function(){
