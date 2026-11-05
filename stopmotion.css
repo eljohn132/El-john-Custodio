@@ -1,0 +1,9 @@
+/* Stop-motion hero: white outline + soft glow around the cutout */
+.photo img#pose{
+  filter:
+    drop-shadow(2px 0 0 #dfe6ee) drop-shadow(-2px 0 0 #dfe6ee)
+    drop-shadow(0 2px 0 #dfe6ee) drop-shadow(0 -2px 0 #dfe6ee)
+    drop-shadow(0 0 14px rgba(120,140,165,.45))
+    brightness(.92) saturate(.85);
+  will-change: transform;
+}
