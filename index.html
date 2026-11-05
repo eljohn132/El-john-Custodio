@@ -156,27 +156,37 @@
 })();
 </script>
 <script>
-/* Stop-motion hero: cycles your 3 poses in #pose. Each hold time is in ms (1000 = 1 sec) */
+/* Stop-motion hero: plays only while the cursor (or a finger) is on the photo. Each hold time is in ms (1000 = 1 sec) */
 (function(){
   var img=document.getElementById('pose'); if(!img) return;
   if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var box=img.parentNode; /* hover on the .photo box so the jitter never moves the hover area */
   var P={A:'img/pose-cross.png',B:'img/pose-standing.png',C:'img/eljohn-front.png'};
   var SEQ=[['A',10000],['B',10000],['C',10000]]; /* [pose, ms] each picture holds 10 sec (10000 ms) */
-  var TICK=350, JIT=1.5, i=0, t=0, timer=null; /* TICK = jitter interval in ms (bigger = slower) */
+  var TICK=350, JIT=1.5, i=0, t=0, timer=null, hovering=false, ready=false, done=false; /* TICK = jitter interval in ms (bigger = slower) */
   function jitter(){img.style.transform='translate('+((Math.random()*2-1)*JIT).toFixed(1)+'px,'+((Math.random()*2-1)*JIT).toFixed(1)+'px)';}
   function tick(){
     var s=SEQ[i]; if(t===0) img.src=P[s[0]];
+    if(i===SEQ.length-1){ /* 3rd picture just showed up: stop here until the next hover */
+      done=true; i=0; t=0; timer=null; img.style.transform='none'; return;
+    }
     jitter();
     var dur=s[1];
     var wait=Math.min(TICK,dur-t); t+=wait;
     if(t>=dur){i=(i+1)%SEQ.length;t=0;}
     timer=setTimeout(tick,wait);
   }
-  function start(){if(!timer)tick();}
-  function stop(){clearTimeout(timer);timer=null;}
+  function start(){if(!timer&&!done&&hovering&&ready&&!document.hidden)tick();}
+  function stop(){clearTimeout(timer);timer=null;img.style.transform='none';}
+  function enter(){hovering=true;done=false;start();} /* a new hover resumes the cycle */
+  box.addEventListener('mouseenter',enter);
+  box.addEventListener('mouseleave',function(){hovering=false;stop();});
+  box.addEventListener('touchstart',enter,{passive:true});
+  box.addEventListener('touchend',function(){hovering=false;stop();},{passive:true});
+  box.addEventListener('touchcancel',function(){hovering=false;stop();},{passive:true});
   document.addEventListener('visibilitychange',function(){document.hidden?stop():start();});
   var left=0;
-  Object.keys(P).forEach(function(k){left++;var im=new Image();im.onload=im.onerror=function(){if(--left===0)setTimeout(start,600);};im.src=P[k];});
+  Object.keys(P).forEach(function(k){left++;var im=new Image();im.onload=im.onerror=function(){if(--left===0){ready=true;start();}};im.src=P[k];});
 })();
 </script>
 </body>
