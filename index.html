@@ -139,7 +139,7 @@
   var img=document.getElementById('pose'); if(!img) return;
   if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var P={A:'img/pose-cross.png',B:'img/pose-standing.png',C:'img/eljohn-front.png'};
-  var SEQ=[['A',4300],['B',250],['C',130],['B',630],['C',500],['B',270],['A',1870]]; /* [pose, ms] timed to match your recording: ~4.3s hold, quick cuts, ~1.9s hold, loop (~8.3s) */
+  var SEQ=[['A',10000],['B',10000],['C',10000]]; /* [pose, ms] each picture holds 10 sec (10000 ms) */
   var TICK=130, JIT=1.5, i=0, t=0, timer=null; /* TICK = jitter interval in ms */
   function jitter(){img.style.transform='translate('+((Math.random()*2-1)*JIT).toFixed(1)+'px,'+((Math.random()*2-1)*JIT).toFixed(1)+'px)';}
   function tick(){
