@@ -101,11 +101,19 @@
 
 <section id="contact"><div class="wrap">
   <div class="contact">
-    <h2 style="font-size:18px;margin-bottom:6px">Leave me a message</h2><p style="font-size:12px;color:var(--dkmut);margin:0">Or email <a href="mailto:eljohncustodio132@gmail.com" style="text-decoration:underline">eljohncustodio132@gmail.com</a></p>
-    <div class="two"><div><label for="e">Email</label><input id="e" type="email" placeholder="Enter email"></div><div><label for="c">Company</label><input id="c" placeholder="Enter company"></div></div>
-    <label for="s">Subject</label><input id="s" placeholder="Enter subject">
-    <label for="m">Message</label><textarea id="m" rows="4" placeholder="Enter message"></textarea>
-    <button class="btn" type="button" onclick="this.textContent='Add your form service first'">Send message</button>
+    <h2 style="font-size:18px;margin-bottom:6px">Leave me a message</h2><p style="font-size:12px;color:var(--dkmut);margin:0">Or email <a href="mailto:eljohncustodio132@gmail.com" style="text-decoration:underline">eljohncustodio132@gmail.com</a> · <a href="https://m.me/Titobadong09" target="_blank" rel="noopener" style="text-decoration:underline">Chat on Messenger</a></p>
+    <form id="contactForm" action="https://formsubmit.co/eljohncustodio132@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="New portfolio message from your website">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_autoresponse" value="Hi! Thanks for messaging Eljohn Custodio. I received your message and will reply as soon as I can.">
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+      <div class="two"><div><label for="e">Email</label><input id="e" name="email" type="email" placeholder="Enter email" required></div><div><label for="c">Company</label><input id="c" name="company" placeholder="Enter company"></div></div>
+      <label for="s">Subject</label><input id="s" name="subject" placeholder="Enter subject" required>
+      <label for="m">Message</label><textarea id="m" name="message" rows="4" placeholder="Enter message" required></textarea>
+      <button class="btn" type="submit" id="sendBtn">Send message</button>
+      <p id="formMsg" role="status" style="font-size:13px;margin:10px 0 0"></p>
+    </form>
   </div>
 </div></section>
 
@@ -114,6 +122,7 @@
   <div><b style="font-size:13px">Social links</b><div class="links" style="margin-top:8px"><a href="https://github.com/eljohn132?tab=repositories" target="_blank" rel="noopener">GitHub</a><a href="https://www.linkedin.com/in/eljohn-custodio-68ab8a448/" target="_blank" rel="noopener">LinkedIn</a><a href="https://web.facebook.com/Titobadong09" target="_blank" rel="noopener">Facebook</a><a href="https://profile.indeed.com/?hl=en_PH&co=PH&from=gnav-homepage" target="_blank" rel="noopener">Indeed</a><a href="https://www.youtube.com/@Melodias.7XStudios" target="_blank" rel="noopener">YouTube</a></div></div>
   <div style="margin-left:auto"><b>© 2026 Eljohn Custodio</b><br>All rights reserved</div>
 </footer>
+<script src="contact.js" defer></script>
 <script src="app.js" defer></script>
 </body>
 </html>
