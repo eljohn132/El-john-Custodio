@@ -6,6 +6,15 @@
 <title>Eljohn Custodio – Portfolio</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="style.css">
+<style>
+/* Stop-motion hero photo: white outline + soft glow */
+.photo img#pose{
+  filter:drop-shadow(2px 0 0 #dfe6ee) drop-shadow(-2px 0 0 #dfe6ee)
+         drop-shadow(0 2px 0 #dfe6ee) drop-shadow(0 -2px 0 #dfe6ee)
+         drop-shadow(0 0 14px rgba(120,140,165,.45)) brightness(.95);
+  will-change:transform;
+}
+</style>
 </head>
 <body>
 <nav>
@@ -124,5 +133,28 @@
 </footer>
 <script src="contact.js" defer></script>
 <script src="app.js" defer></script>
+<script>
+/* Stop-motion hero: cycles your 3 poses in #pose (long hold on crossed arms, then fast cuts, loop) */
+(function(){
+  var img=document.getElementById('pose'); if(!img) return;
+  if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var P={A:'img/pose-cross.png',B:'img/pose-standing.png',C:'img/eljohn-front.png'};
+  var SEQ=[['A',4400],['B',350],['C',350],['B',300],['C',300],['A',250],['B',250],['C',300],['A',200],['B',200]]; /* [pose, ms] */
+  var TICK=130, JIT=1.5, i=0, t=0, timer=null;
+  function jitter(){img.style.transform='translate('+((Math.random()*2-1)*JIT).toFixed(1)+'px,'+((Math.random()*2-1)*JIT).toFixed(1)+'px)';}
+  function tick(){
+    var s=SEQ[i]; if(t===0) img.src=P[s[0]];
+    jitter();
+    var wait=Math.min(TICK,s[1]-t); t+=wait;
+    if(t>=s[1]){i=(i+1)%SEQ.length;t=0;}
+    timer=setTimeout(tick,wait);
+  }
+  function start(){if(!timer)tick();}
+  function stop(){clearTimeout(timer);timer=null;}
+  document.addEventListener('visibilitychange',function(){document.hidden?stop():start();});
+  var left=0;
+  Object.keys(P).forEach(function(k){left++;var im=new Image();im.onload=im.onerror=function(){if(--left===0)setTimeout(start,600);};im.src=P[k];});
+})();
+</script>
 </body>
 </html>
