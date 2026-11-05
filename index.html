@@ -140,13 +140,15 @@
   if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var P={A:'img/pose-cross.png',B:'img/pose-standing.png',C:'img/eljohn-front.png'};
   var SEQ=[['A',4400],['B',350],['C',350],['B',300],['C',300],['A',250],['B',250],['C',300],['A',200],['B',200]]; /* [pose, ms] */
-  var TICK=130, JIT=1.5, i=0, t=0, timer=null;
+  /* SLOW = speed control: 1 = original, 2 = twice as slow, 3 = very relaxed */
+  var SLOW=2, TICK=130*SLOW, JIT=1.5, i=0, t=0, timer=null;
   function jitter(){img.style.transform='translate('+((Math.random()*2-1)*JIT).toFixed(1)+'px,'+((Math.random()*2-1)*JIT).toFixed(1)+'px)';}
   function tick(){
     var s=SEQ[i]; if(t===0) img.src=P[s[0]];
     jitter();
-    var wait=Math.min(TICK,s[1]-t); t+=wait;
-    if(t>=s[1]){i=(i+1)%SEQ.length;t=0;}
+    var dur=s[1]*SLOW;
+    var wait=Math.min(TICK,dur-t); t+=wait;
+    if(t>=dur){i=(i+1)%SEQ.length;t=0;}
     timer=setTimeout(tick,wait);
   }
   function start(){if(!timer)tick();}
